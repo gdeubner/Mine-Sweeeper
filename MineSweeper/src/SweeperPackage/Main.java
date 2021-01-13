@@ -9,8 +9,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
 
+/**
+ * @author Graham Deubner
+ *
+ */
 public class Main extends Application {
     
+	/**
+	 *This method creates the initial stage for the game.
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		try {

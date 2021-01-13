@@ -31,10 +31,16 @@ public class Tile {
         this.pane = pane;
     }
     
+    /**This method returns the number of bombs surrounding this tile.
+     * @return Returns the integer number of bombs around the tile.
+     */
     public int getProximalBombs() {
         return proximalBombs;
     }
     
+    /**
+     * Increments the counter proximalBombs by 1.
+     */
     public void incrimentProximalBombs() {
         proximalBombs++;
     }
@@ -68,6 +74,10 @@ public class Tile {
         return false;
     }
     
+    /**
+     * This method will reveal the given tile in the view as either a bomb, an empty tile, or a numbered tile.
+     * @return Returns true if this tile was blank.
+     */
     public boolean reveal() {
         if(covered == false)
             //do nothing
