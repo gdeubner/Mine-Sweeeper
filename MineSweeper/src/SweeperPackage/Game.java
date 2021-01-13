@@ -39,31 +39,32 @@ public class Game {
                 board[i][j] = new Tile((Pane)grid.getChildren().get(i*cols+j));
             }
         }
-        setBombs(bombCount);
-        
+        //setBombs(bombCount);
     }
     
     
     /**
      * This method assigns a designated number of tiles to hide bombs.
+     * @param row
+     * @param col
      */
-    private void setBombs(int count) {
+    public void setBombs(int row, int col) {
         int totalTiles = rows * cols;
-        for(int i = 0; i < count; i++) {
+        for(int i = 0; i < bombCount; i++) {
             int bombPos = (int) (Math.random() * (totalTiles - 1));
             int columnIndex = bombPos % cols;
             int rowIndex = bombPos / cols;
-            
-            //System.out.println("Set bomb: " + i + "  bombPos: " + bombPos + "  rowIndex: " + rowIndex + "  columnIndex: " + columnIndex);
-            if(!board[rowIndex][columnIndex].setBomb()) {
-                i--;
-            }else {
+            if(!(row == rowIndex && col == columnIndex) && board[rowIndex][columnIndex].setBomb()) {
                 incrimentSurroundingTiles(rowIndex, columnIndex);
+            }else {
+                i--; //this tile is already a bomb, so we decrement the # of bombs 
+                     // placed and randomly choose another
             }
         }
     }
     
     /**
+     * This method increments the bomb counter for the tiles surrounding the given coordinates
      * @param row
      * @param col
      */
@@ -181,6 +182,12 @@ public class Game {
         }
     }
     
+    /**
+     * This method checks every tile on the board. Returns true (win) if there are no tiles
+     * on the board that are both not bombs and not in a covered state.
+     * Returns false if it finds one tile that is not a bomb, but is in the covered state.
+     * @return Returns true on win, false on lose.
+     */
     public boolean checkWin() {
         for(Tile[] row : board) {
             for(Tile t : row) {
